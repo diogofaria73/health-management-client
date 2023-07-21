@@ -1,43 +1,33 @@
-import {
-  BookOpen,
-  ArrowCircleUp,
-  CurrencyDollar,
-  FolderOpen,
-  Door,
-  LockOpen,
-  ArrowArcRight,
-  ArrowsOut,
-  SignOut,
-  BookmarkSimple,
-  Books,
-} from 'phosphor-react'
+import { Door, SignOut, Books } from 'phosphor-react'
 import { SummaryCard, SummaryContainer } from './styles'
+import { useDashboard } from '../../shared/hooks/useDashboard/useDashboard'
 
 export function Summary() {
+  const dashboard = useDashboard()
   return (
     <SummaryContainer>
       <SummaryCard>
         <header>
-          <span>Pacientes Cadastrados</span>
+          <span>Pacientes Admitidos</span>
           <Books size={24} color="#00B37E" />
         </header>
-        <strong>32</strong>
+        <strong>{dashboard.admission}</strong>
       </SummaryCard>
 
       <SummaryCard>
         <header>
-          <span>Pacientes Admitidos</span>
+          <span>Pacientes com Alta</span>
           <Door size={24} color="#00B37E" />
         </header>
-        <strong>15</strong>
+        <strong>{dashboard.discharged}</strong>
       </SummaryCard>
 
       <SummaryCard variant="green">
         <header>
-          <span>Pacientes com Alta</span>
+          <span>Total</span>
           <SignOut size={24} color="#00B37E" />
         </header>
-        <strong>17</strong>
+        <strong>{dashboard.total}</strong>
       </SummaryCard>
     </SummaryContainer>
   )

@@ -5,6 +5,7 @@ import {
   Pencil,
   Trash,
 } from 'phosphor-react'
+import { useContext } from 'react'
 import {
   PriceHighLight,
   TransactionsContainer,
@@ -13,8 +14,11 @@ import {
 import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
 import { FilterForm } from '../../components/Filter'
+import { PatientContext } from '../../shared/context/PatientContext'
 
 export function Home() {
+  const { patients } = useContext(PatientContext)
+
   return (
     <>
       <Header />
@@ -23,64 +27,29 @@ export function Home() {
         <FilterForm />
         <TransactionsTable>
           <tbody>
-            <tr>
-              <td>Joaquim da Silva Costa</td>
-              <td>
-                <PriceHighLight variant="admitted">Admitido</PriceHighLight>
-              </td>
-              <td>13/04/1972</td>
-              <td>3 meses</td>
-              <td title="Editar">
-                <span>
-                  <Pencil size={20} color="#EAB308" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <Trash size={20} color="#7A1921" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <Bandaids size={20} color="#0E7490" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <ArrowArcRight size={20} color="#4ADE80" />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Joaquim da Silva Costa</td>
-              <td>
-                <span>
-                  <PriceHighLight variant="discharged">Alta</PriceHighLight>
-                </span>
-              </td>
-              <td>13/04/1972</td>
-              <td>3 meses</td>
-              <td>
-                <span>
-                  <Pencil size={20} color="#EAB308" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <Trash size={20} color="#7A1921" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <Bandaids size={20} color="#0E7490" />
-                </span>
-              </td>
-              <td>
-                <span>
-                  <ArrowArcRight size={20} color="#4ADE80" />
-                </span>
-              </td>
-            </tr>
+            {patients.map((patient) => {
+              return (
+                <tr key={patient.id}>
+                  <td>{patient.name}</td>
+                  <td>
+                    <PriceHighLight variant={patient.status_type}>
+                      {patient.status}
+                    </PriceHighLight>
+                  </td>
+                  <td>{patient.city}</td>
+                  <td>{patient.phone}</td>
+                  <td>
+                    <Pencil size={20} color="#EAB308" />
+                  </td>
+                  <td>
+                    <Trash size={20} color="#7A1921" />
+                  </td>
+                  <td>
+                    <Bandaids size={20} color="#0E7490" />
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
